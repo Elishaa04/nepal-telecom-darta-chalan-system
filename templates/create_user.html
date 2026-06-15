@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create User</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            margin:0;
+        }
+
+        .container{
+            background:white;
+            width:600px;
+            padding:40px;
+            border-radius:20px;
+            box-shadow:0 0 20px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            text-align:center;
+            color:#0d47a1;
+            margin-bottom:30px;
+        }
+
+        p{
+            margin-bottom:20px;
+        }
+
+        label{
+            font-weight:bold;
+            display:block;
+            margin-bottom:8px;
+        }
+
+        input[type="text"],
+        input[type="password"]{
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            box-sizing:border-box;
+        }
+
+        input[type="checkbox"]{
+            width:20px;
+            height:20px;
+        }
+
+        button{
+            width:100%;
+            padding:14px;
+            border:none;
+            border-radius:8px;
+            background:#0d47a1;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+            margin-top:15px;
+        }
+
+        button:hover{
+            background:#1565c0;
+        }
+
+        .back-btn{
+            display:block;
+            text-align:center;
+            margin-top:20px;
+            text-decoration:none;
+            color:#0d47a1;
+            font-weight:bold;
+        }
+
+        .helptext{
+            display:none;
+        }
+
+        ul{
+            display:none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>👤 Create User</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Create User
+        </button>
+
+    </form>
+
+    <a href="/users/" class="back-btn">
+        ← Back to Users
+    </a>
+
+</div>
+
+</body>
+</html>

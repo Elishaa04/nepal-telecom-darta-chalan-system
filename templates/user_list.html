@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Management</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    padding:40px;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+h1{
+    color:#0d47a1;
+}
+
+.create-btn{
+    background:#0d47a1;
+    color:white;
+    padding:12px 20px;
+    text-decoration:none;
+    border-radius:8px;
+    display:inline-block;
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#0d47a1;
+    color:white;
+    padding:15px;
+}
+
+td{
+    padding:15px;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f8f9fa;
+}
+
+.badge-admin{
+    background:#28a745;
+    color:white;
+    padding:5px 10px;
+    border-radius:20px;
+}
+
+.badge-user{
+    background:#6c757d;
+    color:white;
+    padding:5px 10px;
+    border-radius:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>👥 User Management</h1>
+{% if request.user.is_superuser %}
+<a href="/users/create/" class="create-btn">
+➕ Create User
+</a>
+{% endif %}
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Username</th>
+<th>Role</th>
+<th>Superuser</th>
+<th>Action</th>
+</tr>
+
+{% for user in users %}
+
+<tr>
+<td>{{ user.id }}</td>
+<td>{{ user.username }}</td>
+
+<td>
+{% if user.is_staff %}
+<span class="badge-admin">Admin</span>
+{% else %}
+<span class="badge-user">User</span>
+{% endif %}
+</td>
+
+<td>
+{% if user.is_superuser %}
+✅ Yes
+{% else %}
+❌ No
+{% endif %}
+</td>
+<td>
+
+<a href="/users/edit/{{ user.id }}/">
+✏ Edit
+</a>
+
+&nbsp;&nbsp;
+
+<a href="/users/delete/{{ user.id }}/"
+onclick="return confirm('Delete this user?')">
+🗑 Delete
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

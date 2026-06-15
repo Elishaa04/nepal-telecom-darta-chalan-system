@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nepal Telecom Darta Chalan System</title>
+
+    <style>
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+
+    background:
+    linear-gradient(
+        rgba(255,255,255,0.90),
+        rgba(255,255,255,0.90)
+    ),
+    url("/media/logo.png");
+
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:500px;
+    background-attachment:fixed;
+}
+
+.sidebar{
+    width:250px;
+    height:100vh;
+    background:#003893;
+    color:white;
+    position:fixed;
+    padding:20px;
+}
+
+.sidebar h2{
+    text-align:center;
+}
+
+.sidebar img{
+    display:block;
+    margin:auto;
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px;
+    margin-top:10px;
+    background:rgba(255,255,255,0.10);
+    border-radius:8px;
+    font-size:20px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,0.20);
+}
+
+.main{
+    margin-left:290px;
+    padding:30px;
+}
+
+.main h1{
+    margin-bottom:30px;
+}
+
+.cards{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0px 10px 25px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.stats-card{
+    width:300px;
+}
+
+.activity-card{
+    width:700px;
+    margin-top:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#003893;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f5f5f5;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <img src="/media/logo.png" width="170">
+
+    <h2>Nepal Telecom</h2>
+
+    <a href="/darta/">📄 Darta</a>
+
+    <a href="/chalan/">📨 Chalan</a>
+    {% if request.user.is_superuser %}
+    <a href="/users/">👥 Users</a>
+    {% endif %}
+    
+    {% if user.is_authenticated %}
+    <a href="#">👤 {{ user.username }}</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+    {% else %}
+    <a href="/admin/">🔐 Admin Login</a>
+    {% endif %}
+</div>
+
+<div class="main">
+
+    <h1>
+        NEPAL TELECOM
+        <br>
+        Darta & Chalan Management System
+    </h1>
+
+    <div class="cards">
+
+    <div class="card">
+        <h2>Total Darta</h2>
+        <h1>{{ total_darta }}</h1>
+    </div>
+
+    <div class="card">
+        <h2>Total Chalan</h2>
+        <h1>{{ total_chalan }}</h1>
+    </div>
+
+</div>
+
+<br>
+<div class="cards">
+    <div class="card">
+        <h2>Today's Darta</h2>
+        <h1>{{ today_darta }}</h1>
+    </div>
+
+    <div class="card">
+        <h2>Today's Chalan</h2>
+        <h1>{{ today_chalan }}</h1>
+    </div>
+    <div class="card">
+        <h2>Total Users</h2>
+        <h1>{{ total_users }}</h1>
+    </div>
+
+</div>
+
+    <div class="card activity-card">
+
+        <h2>Recent Activities</h2>
+
+        <table>
+
+            <tr>
+                <th>Activity</th>
+                <th>Date & Time</th>
+            </tr>
+
+            {% for activity in recent_activities %}
+            <tr>
+                <td>{{ activity.action }}</td>
+                <td>{{ activity.created_at }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
